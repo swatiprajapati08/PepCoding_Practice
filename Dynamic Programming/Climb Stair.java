@@ -45,13 +45,29 @@ public class Main {
   static int PathTab(int n)
   {
     int dp[] = new int[n + 1];
-    dp[0] = 1;
-    dp[1] = 1;
-    dp[2] = 2;
-    dp[3] = 4;
-    for (int i = 4; i <= n; i++)
-      dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+    // dp[0] = 1;
+    // dp[1] = 1;
+    // dp[2] = 2;
+    // dp[3] = 4;
+    // for (int i = 4; i <= n; i++)
+    //   dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+    
+    // return dp[n];
 
-    return dp[n];
+
+    //   or
+
+    dp[n] = 1;
+    for (int i = n - 1; i >= 0; i--)
+    {
+      dp[i] = dp[i + 1];
+      if (i + 2 < dp.length)
+        dp[i] += dp[i + 2];
+      if (i + 3 <  dp.length)
+        dp[i] += dp[i + 3];
+    }
+
+
+    return dp[0];
   }
 }
