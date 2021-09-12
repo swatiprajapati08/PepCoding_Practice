@@ -58,4 +58,24 @@ public class Main {
     }
     return dp[n][W];
   }
+  
+  //Using another Tabulation using 1 D
+   static int knapSack2(int W, int wt[], int val[], int n)
+  {
+    int dp[] = new int[W + 1];
+    dp[0]=0; //max profit
+    for (int i = 1; i <= W; i++)
+    {
+        int max=0;
+      for (int j = 0; j < n; j++)
+      {
+        int curr= i-wt[j]; //3-2=1
+        if(curr>=0)
+        max=Math.max(max,dp[curr]+val[j]);
+      }
+      dp[i]=max;
+    }
+    return dp[W];
+  }
+  
 }
