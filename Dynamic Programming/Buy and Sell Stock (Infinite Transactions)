@@ -1,0 +1,26 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args) throws Exception {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int arr[] = new int[n];
+    int dp[] = new int[n];
+    for (int i = 0; i < n; i++)
+      arr[i] = sc.nextInt();
+    int prev_buy_Extra = -1*arr[0];
+    int prev_sell = 0;
+    for (int i = 1; i < n; i++)
+    {
+        int new_Buy = Math.max(prev_sell-arr[i],prev_buy_Extra); 
+        int new_Sell = Math.max(prev_buy_Extra+arr[i],prev_sell);
+        
+        prev_buy_Extra=new_Buy;
+        prev_sell=new_Sell;
+    }
+    System.out.println(prev_sell);
+  }
+
+}
