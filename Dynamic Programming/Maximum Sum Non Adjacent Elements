@@ -1,0 +1,43 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args) throws Exception {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int arr[] = new int[n];
+    for (int i = 0; i < n; i++)
+      arr[i] = sc.nextInt();
+
+    int dp[][] = new int[n + 1][2];
+    for (int i = 0; i < n; i++)
+      Arrays.fill(dp[i], -1);
+    System.out.println(MaxSum(arr, 0, 0, dp));
+
+  }
+
+  static int MaxSum(int[] arr, int idx, int lastVal, int[][] dp)
+  {
+    if (idx >= arr.length)
+      return 0;
+
+    if (dp[idx][lastVal] != -1)
+      return dp[idx][lastVal];
+
+    if (lastVal == 1)
+    {
+      int ans = MaxSum(arr, idx + 1, 0, dp);
+      dp[idx][lastVal] = ans;
+      return ans;
+    }
+
+    int ansYes = arr[idx] + MaxSum(arr, idx + 1, 1, dp);
+    int ansNo = MaxSum(arr, idx + 1, 0, dp);
+    int ans = Math.max(ansYes, ansNo);
+    dp[idx][lastVal] = ans;
+    return ans;
+
+  }
+
+}
