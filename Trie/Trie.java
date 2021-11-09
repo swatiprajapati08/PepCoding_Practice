@@ -1,0 +1,61 @@
+// "static void main" must be defined in a public class.
+public class Main {
+    public static void main(String[] args) {
+      Trie trie = new Trie();
+        trie.insert("cat");
+        trie.insert("son");
+        trie.insert("hat");
+        trie.insert("home");
+        trie.insert("so");
+        System.out.println(trie.search("some"));
+        System.out.println(trie.search("hat"));
+    }
+}
+
+class Trie{
+    
+    private TrieNode root;
+    
+    public Trie(){
+        root = new TrieNode();
+    }
+    
+     public class TrieNode{
+        private TrieNode[] children;
+        private boolean isWord = false;
+        
+         public TrieNode(){
+             this.children = new TrieNode[26];
+             this.isWord = false;
+         }
+    }
+    
+    public void insert(String word){
+        TrieNode curr = root;
+        
+        for(int i = 0; i < word.length();i++)
+        {
+            int index = word.charAt(i) - 'a';
+            if(curr.children[index] == null){
+                // add a new node and refer the curr to new node
+                curr.children[index] = new TrieNode();;
+                curr = curr.children[index];
+            }
+            else
+                curr =  curr.children[index];
+        }
+        curr.isWord = true;
+    }
+    public boolean search(String word){
+         TrieNode curr = root;
+        
+        for(int i = 0; i < word.length();i++)
+        {
+            int index = word.charAt(i) - 'a';
+            if(curr.children[index] == null)
+                return false;
+            curr = curr.children[index];
+        }
+        return curr.isWord;
+    }
+}
