@@ -1,0 +1,56 @@
+// item on level
+// 1) na aaye 2) aaye toh aaye kis box pe
+
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  static void Helper(int idx, String ustr, Character[] spots,int ssf,int k) {
+
+    if (idx == ustr.length()) {
+      if (ssf == k) {
+        for (char c : spots)
+          System.out.print(c);
+        System.out.println();
+      }
+      return;
+    }
+
+   
+    char currCh = ustr.charAt(idx);
+    
+    //come at which place
+    for(int i = 0; i < spots.length;i++){
+        if(spots[i] == null){
+            spots[i] = currCh;
+            Helper(idx + 1, ustr,spots,ssf + 1,k);
+             spots[i] = null;
+        }
+    }
+    
+     //dont come
+    Helper(idx + 1, ustr,spots,ssf,k);
+    
+  }
+
+  public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String str = br.readLine();
+    int k = Integer.parseInt(br.readLine());
+
+    HashSet<Character> unique = new HashSet<>();
+    String ustr = "";
+    for (char ch : str.toCharArray()) {
+      if (unique.contains(ch) == false) {
+        unique.add(ch);
+        ustr += ch;
+      }
+    }
+    Character ch[] = new Character[k];
+    Arrays.fill(ch, null);
+    Helper(0,ustr,ch,0,k);
+  }
+
+}

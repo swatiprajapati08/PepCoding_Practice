@@ -1,0 +1,38 @@
+
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  public static void main(String[] args) throws Exception {
+    Scanner scn = new Scanner(System.in);
+    String str = scn.nextLine();
+    int k = scn.nextInt();
+
+    HashSet<Character> unique = new HashSet<>();
+    String ustr = "";
+    for (char ch : str.toCharArray()) {
+      if (unique.contains(ch) == false) {
+        unique.add(ch);
+        ustr += ch;
+      }
+    }
+    Helper(0,k,ustr,"");
+  }
+  
+  static void Helper(int idx, int k, String ustr,String asf){
+      
+      if(asf.length() == k){
+          System.out.println(asf);
+          return;
+      }
+      if(idx >= ustr.length())return;
+      
+      //can come
+      Helper(idx + 1,k,ustr,asf+ustr.charAt(idx));
+      //can't come
+      Helper(idx + 1,k,ustr,asf);
+  }
+
+}

@@ -1,0 +1,45 @@
+// every item have choice
+//1) Dont come  2) come the which one
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+  static HashMap<Character, Integer> unique ;
+  public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String str = br.readLine();
+    int k = Integer.parseInt(br.readLine());
+
+    unique = new HashMap<>();
+    String ustr = "";
+    for (char ch : str.toCharArray()) {
+      if (unique.containsKey(ch) == false) {
+        unique.put(ch, 1);
+        ustr += ch;
+      } else {
+        unique.put(ch, unique.get(ch) + 1);
+      }
+    }
+
+    Helper(0, ustr, "", k);
+  }
+  static void Helper(int lastidx, String ustr, String ssf, int k) {
+
+    if (ssf.length() == k ) {
+      System.out.println(ssf);
+      return;
+    }
+
+    for (int i = lastidx; i < ustr.length(); i++) {
+      char ch = ustr.charAt(i);
+      int val = unique.get(ch);
+
+      if (val > 0) {
+        unique.put(ch, val - 1);
+        Helper(i, ustr, ssf + ch, k);
+        unique.put(ch, val);
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    static void Helper(int boxLevel,String ustr,boolean visited[],String asf, int k){
+        if(asf.length() == k){
+            System.out.println(asf);
+            return;
+        }
+        
+        for(int i = 0; i< ustr.length();i++){
+            int idx = ustr.charAt(i) -'a';
+            if(visited[idx] == false){
+                visited[idx] = true;
+                Helper(boxLevel + 1,ustr,visited,asf +  ustr.charAt(i), k);
+                visited[idx] = false;
+            }
+        }
+    }
+
+  public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String str = br.readLine();
+    int k = Integer.parseInt(br.readLine());
+
+    HashSet<Character> unique = new HashSet<>();
+    String ustr = "";
+    for (char ch : str.toCharArray()) {
+      if (unique.contains(ch) == false) {
+        unique.add(ch);
+        ustr += ch;
+      }
+    }
+
+    Helper(0,ustr,new boolean[26],"",k);
+  }
+
+}
+
+
+//instead of boolean array can also HashSEt
+
+/*
+
+ HashSet<Character> hs = new HashSet<>();
+    Permutation(0, k, ustr, "", hs);
+   
+  }
+  static void Permutation(int cb, int tb, String ustr, String asf, HashSet<Character> hs)
+  {
+
+    if (cb == tb) {
+      System.out.println(asf);
+      return;
+    }
+
+    for (int i = 0 ; i < ustr.length(); i++) {
+      char ch = ustr.charAt(i);
+      if (!hs.contains(ch)) {
+        hs.add(ch);
+        Permutation(cb + 1, tb, ustr, asf + ch, hs);
+        hs.remove(ch);
+      }
+    }
+  }
+}
+
+ */
