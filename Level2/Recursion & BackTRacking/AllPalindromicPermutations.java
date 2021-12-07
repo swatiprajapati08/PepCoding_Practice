@@ -1,7 +1,7 @@
-import java.io.*;
+
 import java.util.*;
 
-public class Main {
+public class AllPalindromicPermutations {
 
 	public static void generatepw(int idx, int total, HashMap<Character, Integer> fmap, Character oddc, Character[] ch, boolean flag) {
 		
